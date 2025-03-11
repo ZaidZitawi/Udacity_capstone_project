@@ -1,162 +1,134 @@
-# Travel App
+# 🌍 Travel Explorer
 
-This is a simple travel app that allows users to search for locations, get weather information, and view related images. It uses **Node.js**, **Express**, and integrates with various third-party APIs: **GeoNames API** for location data, **Weatherbit API** for weather information, and **Pixabay API** for fetching images.
-
----
-
-## ✨ Features
-
-- **Location Search**: Allows users to search for a location and get its latitude and longitude using the GeoNames API.
-- **Weather Information**: Fetches current weather data, including temperature and weather description, for a specific location using latitude and longitude.
-- **Images**: Displays images related to a location fetched from the Pixabay API.
+Travel Explorer is a dynamic web application that helps users discover new destinations, get real-time weather updates, and view stunning images of their chosen locations. Built with **Node.js** and **Express**, it leverages the power of **GeoNames**, **Weatherbit**, and **Pixabay** APIs.
 
 ---
 
-## ⚙️ Requirements
+## 🚀 Key Features
 
-This project requires:
+- **Destination Search**: Find any place in the world and get its geographical coordinates.
+- **Weather Updates**: Receive current weather conditions for any location.
+- **Visual Exploration**: Browse beautiful images related to your travel destinations.
+
+---
+
+## 🛠️ System Requirements
+
+To run this project, you need:
 - **Node.js v20.12.2**
 - **NPM** (Node Package Manager)
 
-Ensure you have the specified Node.js version installed for compatibility.
+Ensure you have the correct Node.js version installed.
 
 ---
 
-## 📥 Installation
+## 📦 Setup Instructions
 
-1. Clone this repository:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/Travel-App.git
+   git clone https://github.com/your-username/Travel-Explorer.git
    ```
-2. Navigate into the project directory:
+2. Navigate to the project directory:
    ```bash
-   cd Travel-App
+   cd Travel-Explorer
    ```
-3. Install the necessary dependencies:
+3. Install dependencies:
    ```bash
    npm install
    ```
-4. Create a `.env` file in the root directory and add your API keys:
+4. Configure your environment variables by creating a `.env` file in the root directory:
    ```env
    GEO_USERNAME=your-geonames-username
    WEATHER_API_KEY=your-weatherbit-api-key
    PIXABAY_API_KEY=your-pixabay-api-key
    ```
-   - Replace `your-geonames-username`, `your-weatherbit-api-key`, and `your-pixabay-api-key` with your actual API credentials.
-   - Test the API endpoints using tools like **Postman** or **cURL**.
+   Replace the placeholders with your actual API keys.
 
 ---
 
-## 📡 API Endpoints
+## 🌐 API Endpoints
 
-### 1. **Get Location Data**
-- **Endpoint**:  
-  `POST /getLocation`  
-- **Request Body**:  
+### 1. **Fetch Coordinates**
+- **Endpoint**: `POST /api/location`
+- **Request**:
   ```json
   {
-    "location": "Paris"
+    "location": "New York"
   }
   ```
-- **Response**:  
+- **Response**:
   ```json
   {
-    "lat": 48.8566,
-    "lng": 2.3522
-  }
-  ```
-
-### 2. **Get Weather Information**
-- **Endpoint**:  
-  `POST /getWeather`  
-- **Request Body**:  
-  ```json
-  {
-    "lat": 48.8566,
-    "lng": 2.3522
-  }
-  ```
-- **Response**:  
-  ```json
-  {
-    "temperature": 15,
-    "weather_description": "Clear Sky",
-    "city_name": "Paris"
+    "latitude": 40.7128,
+    "longitude": -74.0060
   }
   ```
 
-### 3. **Get Location Image**
-- **Endpoint**:  
-  `POST /getImage`  
-- **Request Body**:  
+### 2. **Fetch Weather**
+- **Endpoint**: `POST /api/weather`
+- **Request**:
   ```json
   {
-    "location": "Paris"
+    "latitude": 40.7128,
+    "longitude": -74.0060
   }
   ```
-- **Response**:  
+- **Response**:
   ```json
   {
-    "imageUrl": "https://example.com/image.jpg"
+    "temperature": 22,
+    "description": "Sunny",
+    "city": "New York"
+  }
+  ```
+
+### 3. **Fetch Images**
+- **Endpoint**: `POST /api/images`
+- **Request**:
+  ```json
+  {
+    "location": "New York"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "images": [
+      "https://example.com/image1.jpg",
+      "https://example.com/image2.jpg"
+    ]
   }
   ```
 
 ---
 
-## 🧪 Testing
+## 🧪 Running Tests
 
-To run unit tests for the app using **Jest**, execute:  
+To execute unit tests using **Jest**, run:
 ```bash
-NODE_OPTIONS=--experimental-vm-modules npm run test --detectOpenHandles
+npm test
 ```
 
 ---
 
-## 🛠 Build & Development
+## 🔧 Development Workflow
 
-To set up **webpack** and start your development environment, follow these steps:
-
-1. First, build your project to create the `dist` folder:
-
+1. Build the project:
    ```bash
    npm run build
    ```
-
-2. Then, start the development server with webpack:
-
+2. Start the development server:
    ```bash
    npm run dev
    ```
-
-3. Finally, you can run both the development server and Express simultaneously for hot reloading and a working backend:
-
+3. For simultaneous backend and frontend development with hot reloading:
    ```bash
-   npm run start
+   npm start
    ```
-   - The app will run at **http://localhost:4007**.
-
-This will ensure that both your **frontend** (with hot reloading) and **backend** (Express) are up and running smoothly during development.
+   The application will be available at **http://localhost:4007**.
 
 ---
 
-## 📜 License
-This project is licensed under the **MIT License**. Check the `LICENSE` file for more details.
+## 📄 License
 
----
-
-## 🙌 Acknowledgments
-- **GeoNames API**: For geographic data like latitude and longitude.  
-- **Weatherbit API**: For providing accurate and reliable weather information.  
-- **Pixabay API**: For fetching high-quality images for travel destinations.  
-
----
-
-### 🌟 Key Notes:
-- **Ensure your Node.js version is v20.12.2** to avoid compatibility issues.
-- The `.env` file should be kept private and not included in any public repositories.
-- API keys are required to run the app; sign up on the respective API provider websites to get them.
-- **Ensure Run** `npm run build`to create the dist folder, then `npm run dev` for development, and `npm run start` to run both webpack and Express with hot reloading.
-
-Enjoy exploring the world with the Travel App 🌍✨!
-
-
+This project is licensed under the **MIT License**. See the `LICENSE` file for more details.
