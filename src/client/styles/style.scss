@@ -1,0 +1,129 @@
+// Define Colors
+$primary-color: #4caf50; // Fresh green
+$primary-hover: #388e3c; // Darker green on hover
+$background-color: #f0f4f8; // Light, soft background
+$text-color: #4a4a4a; // Dark gray text
+$border-color: #d0d7df; // Soft border color
+$font-family: "Roboto", Arial, sans-serif; // Sleek modern font
+
+// Global Styles
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  margin: 0;
+  padding: 0;
+  color: $text-color;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow-y: auto; // Allow vertical scrolling if needed
+}
+
+#app {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px; // Add some space on all sides to allow scrolling
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid $border-color;
+  transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); // Shadow effect
+  }
+
+  h1 {
+    text-align: center;
+    color: $primary-color;
+    font-size: 2.4rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    label {
+      font-weight: 500;
+      color: $text-color;
+      font-size: 1.1rem;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      border: 1px solid $border-color;
+      background-color: #fafafa;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+      }
+
+      &::placeholder {
+        color: #888;
+      }
+    }
+
+    input[type="date"] {
+      background-color: #fff;
+    }
+
+    button {
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      background-color: $primary-color;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:hover {
+        background-color: $primary-hover;
+        box-shadow: 0 5px 15px rgba(56, 142, 60, 0.2);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  #app {
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  button {
+    padding: 16px;
+  }
+}
