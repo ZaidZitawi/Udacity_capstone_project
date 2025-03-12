@@ -5,19 +5,25 @@
  */
 import { handleSubmit } from '../src/client/js/app.js';
 
-// We'll mock fetch calls with different responses for each call:
+/**
+ * We'll simulate multiple fetch calls:
+ * 1. /getLocation => returns { lat, lng }
+ * 2. /getWeather => returns { temperature, weather_description, city_name }
+ * 3. /getImage => returns { imageUrl }
+ *
+ * This way we can confirm 3 fetch calls occur in a valid scenario.
+ */
 let fetchCallCount = 0;
 global.fetch = jest.fn(() => {
   fetchCallCount++;
-  // 1st call: /getLocation => returns lat, lng
   if (fetchCallCount === 1) {
+    // /getLocation
     return Promise.resolve({
       ok: true,
       json: () => Promise.resolve({ lat: 10, lng: 20 }),
     });
-  }
-  // 2nd call: /getWeather => returns temperature
-  if (fetchCallCount === 2) {
+  } else if (fetchCallCount === 2) {
+    // /getWeather
     return Promise.resolve({
       ok: true,
       json: () =>
@@ -27,18 +33,14 @@ global.fetch = jest.fn(() => {
           city_name: 'MyCity',
         }),
     });
-  }
-  // 3rd call: /getImage => returns imageUrl
-  if (fetchCallCount === 3) {
+  } else if (fetchCallCount === 3) {
+    // /getImage
     return Promise.resolve({
       ok: true,
       json: () => Promise.resolve({ imageUrl: 'http://example.com/test.jpg' }),
     });
   }
-  return Promise.resolve({
-    ok: true,
-    json: () => Promise.resolve({}),
-  });
+  return Promise.resolve({ ok: true, json: () => Promise.resolve({}) });
 });
 
 // We'll also mock `alert` since `handleSubmit` may call it
@@ -49,6 +51,7 @@ describe('handleSubmit', () => {
     jest.clearAllMocks();
     fetchCallCount = 0;
 
+    // Reset our DOM for each test
     document.body.innerHTML = `
       <form id="travel-form">
         <input id="destination" />
@@ -70,8 +73,7 @@ describe('handleSubmit', () => {
     expect(global.alert).toHaveBeenCalledWith(
       'Please enter destination and both travel dates.'
     );
-    // No network calls
-    expect(fetch).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled(); // no fetch calls
   });
 
   test('alerts if no start or end date is provided', async () => {
@@ -108,16 +110,14 @@ describe('handleSubmit', () => {
     const fakeEvent = { preventDefault: jest.fn() };
     await handleSubmit(fakeEvent);
 
-    // #1 fetch => /getLocation
+    // 1st call
     expect(fetch.mock.calls[0][0]).toBe('http://localhost:4007/getLocation');
-
-    // #2 fetch => /getWeather
+    // 2nd call
     expect(fetch.mock.calls[1][0]).toBe('http://localhost:4007/getWeather');
-
-    // #3 fetch => /getImage
+    // 3rd call
     expect(fetch.mock.calls[2][0]).toBe('http://localhost:4007/getImage');
 
-    // total 3 calls
+    // Confirm total calls
     expect(fetch).toHaveBeenCalledTimes(3);
   });
 });

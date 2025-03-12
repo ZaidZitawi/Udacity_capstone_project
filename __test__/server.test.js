@@ -1,6 +1,14 @@
+/**
+ * @jest-environment node
+ */
 import request from 'supertest';
-import app from '../src/server/server.js'; // correct relative path
 import nock from 'nock';
+import app from '../src/server/server.js';
+
+// Clean up nock after each test
+afterEach(() => {
+  nock.cleanAll();
+});
 
 describe('Server endpoints', () => {
   it('should respond with status 200 on root GET', async () => {
