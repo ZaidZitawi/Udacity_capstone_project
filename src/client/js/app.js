@@ -1,3 +1,6 @@
+//app.js
+// This is the client-side code that will run in the browser.
+
 const handleSubmit = async (event) => {
   event.preventDefault();
 
