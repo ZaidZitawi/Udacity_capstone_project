@@ -17,13 +17,13 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  overflow-y: auto; // Allow vertical scrolling if needed
+  overflow-y: auto;
 }
 
 #app {
-  width: 100%;
+  width: 90%;
   max-width: 600px;
-  margin: 20px; // Add some space on all sides to allow scrolling
+  margin: 20px; // Add some space around
   padding: 40px;
   background: #ffffff;
   border-radius: 20px;
@@ -33,7 +33,7 @@ body {
 
   &:hover {
     transform: scale(1.03);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); // Shadow effect
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
   }
 
   h1 {
@@ -107,6 +107,15 @@ body {
   }
 }
 
+#result img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Optional, to match your form design */
+  margin: 20px 0;
+}
+
+
 // Responsive Design
 @media (max-width: 768px) {
   body {
@@ -115,7 +124,6 @@ body {
 
   #app {
     padding: 25px;
-    width: 90%;
     max-width: 500px;
   }
 
@@ -123,7 +131,46 @@ body {
     font-size: 1.8rem;
   }
 
+  form label {
+    font-size: 1rem;
+  }
+
+  input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
   button {
-    padding: 16px;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #app {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  form {
+    gap: 15px;
+  }
+
+  form label {
+    font-size: 0.95rem;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 13px;
   }
 }
