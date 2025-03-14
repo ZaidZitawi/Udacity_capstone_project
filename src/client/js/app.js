@@ -1,4 +1,4 @@
-//app.js
+// app.js
 // This is the client-side code that will run in the browser.
 
 const handleSubmit = async (event) => {
@@ -13,7 +13,8 @@ const handleSubmit = async (event) => {
     return;
   }
 
-  if (new Date(endDate) < new Date(startDate)) {
+  // Ensure the end date is strictly after the start date.
+  if (new Date(endDate) <= new Date(startDate)) {
     alert("End date must be after start date.");
     return;
   }
@@ -23,7 +24,7 @@ const handleSubmit = async (event) => {
   );
 
   try {
-    // here we will fetch the location data
+    // Fetch location data.
     const locationResponse = await fetch("http://localhost:4007/getLocation", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -39,7 +40,7 @@ const handleSubmit = async (event) => {
     const locationData = await locationResponse.json();
 
     if (locationData.lat && locationData.lng) {
-      //if the location data is found, we will fetch the weather and image data
+      // If the location is found, fetch the weather and image data.
       await fetchWeatherAndImage(
         locationData.lat,
         locationData.lng,
@@ -57,7 +58,7 @@ const handleSubmit = async (event) => {
   }
 };
 
-//images and weather data
+// Fetch weather and image data.
 const fetchWeatherAndImage = async (
   lat,
   lng,
@@ -66,7 +67,7 @@ const fetchWeatherAndImage = async (
   tripDuration
 ) => {
   try {
-    //weatherbit API
+    // Weatherbit API
     const weatherResponse = await fetch("http://localhost:4007/getWeather", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -82,7 +83,7 @@ const fetchWeatherAndImage = async (
     const weatherData = await weatherResponse.json();
 
     if (weatherData.temperature) {
-      //Pixabay api
+      // Pixabay API
       const imageUrl = await fetchImage(destination);
 
       document.getElementById("result").innerHTML = `
@@ -106,7 +107,7 @@ const fetchWeatherAndImage = async (
   }
 };
 
-//requesting image data for Pixabay
+// Requesting image data for Pixabay.
 const fetchImage = async (destination) => {
   try {
     const imageResponse = await fetch("http://localhost:4007/getImage", {

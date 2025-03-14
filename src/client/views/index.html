@@ -22,18 +22,49 @@
     </form>
     <div id="result"></div>
   </div>
+  
+  <!-- Service Worker Registration -->
   <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch((error) => {
-          console.error('Service Worker registration failed:', error);
-        });
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+  
+  <!-- Date Input Restrictions -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
+      const startDateInput = document.getElementById('start-date');
+      const endDateInput = document.getElementById('end-date');
+
+      // Set the minimum allowed date for start-date to today
+      startDateInput.setAttribute('min', todayStr);
+
+      // Set the default minimum for end-date to one day after today
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tomorrowStr = tomorrow.toISOString().split('T')[0];
+      endDateInput.setAttribute('min', tomorrowStr);
+
+      // Update the end-date's min value when the start-date changes.
+      startDateInput.addEventListener('change', function() {
+        if (this.value) {
+          let selectedStart = new Date(this.value);
+          selectedStart.setDate(selectedStart.getDate() + 1);
+          const newMinEnd = selectedStart.toISOString().split('T')[0];
+          endDateInput.setAttribute('min', newMinEnd);
+        }
+      });
     });
-  }
   </script>
 </body>
 </html>
